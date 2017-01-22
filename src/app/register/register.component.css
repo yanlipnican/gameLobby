@@ -1,0 +1,19 @@
+h1{
+    margin-bottom: 20px;
+}
+
+@media(min-width: 769px){
+    .container{
+        margin-top: 100px;
+    }
+}
+
+@media(max-width: 768px){
+    .container{
+        padding: 40px;
+    }
+
+    .btn{
+        width: 100%;
+    }
+}
