@@ -6,7 +6,7 @@ import { AuthService } from 'app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.less'],
   animations: [routerTransition()],
   host : {'[@routerTransition]': ''},
 })
