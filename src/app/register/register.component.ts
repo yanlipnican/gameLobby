@@ -6,7 +6,7 @@ import { AuthService } from 'app/services/auth.service';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.less'],
-    animations: [routerTransition()],
+  animations: [routerTransition()],
   host : {'[@routerTransition]': ''},
 })
 export class RegisterComponent implements OnInit {

@@ -14,8 +14,10 @@ export class LoginComponent implements OnInit {
 
   emailInput: String;
   passwordInput: String;
-  isError: Boolean = false;
   errorMessage: String;
+
+  isError: Boolean = false;
+  loading: Boolean = false;
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -26,14 +28,24 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.auth.authorize(this.emailInput, this.passwordInput).then((isAuthorized) => {
+    this.loading = true;
+
+    this.auth.logIn(this.emailInput, this.passwordInput).then((isAuthorized) => {
       if (isAuthorized) {
         this.router.navigate(['/home']);
       } else {
         this.isError = true;
         this.errorMessage = 'User name or password is invalid.';
       }
-    });
+      this.loading = false;
+    }).catch(this.handleError.bind(this));
+  }
+
+  handleError(err) {
+    console.error(err);
+    this.isError = true;
+    this.errorMessage = 'Unable to reach server.';
+    this.loading = false;
   }
 
   onKeyHandler() {
