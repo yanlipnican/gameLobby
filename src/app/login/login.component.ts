@@ -39,10 +39,11 @@ export class LoginComponent implements OnInit {
       }
       this.loading = false;
     }).catch(this.handleError.bind(this));
+
   }
 
   handleError(err) {
-    console.error(err);
+    console.error('Login', err);
     this.isError = true;
     this.errorMessage = 'Unable to reach server.';
     this.loading = false;

@@ -1,10 +1,8 @@
-<alert *ngIf="error" type="danger">
+<alert *ngIf="error" type="danger" class="fadeInOnLoad">
     {{ error }}
 </alert>
-<div *ngIf="loading" class="loading">
-    Loading...
-</div>
-<div *ngIf="!loading && !error">
+<div *ngIf="loading" class="loading fadeInOnLoad"></div>
+<div *ngIf="!loading && !error" class="fadeInOnLoad">
     <app-header></app-header>
     <router-outlet></router-outlet>
 </div>
