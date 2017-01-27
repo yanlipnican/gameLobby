@@ -4,6 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
+    "backend": "node backend/authServer.js",
     "ng": "ng",
     "serve:hmr": "ng serve --hmr -e=dev-hmr",
     "start": "ng serve",

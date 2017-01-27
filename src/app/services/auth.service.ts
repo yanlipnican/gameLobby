@@ -1,30 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
+import { API_ADDRESS, API_PATH, LOCALSTORAGE_TOKEN_KEY } from 'app/app.constants';
+import { Path } from 'app/app.helpers';
+
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AuthService {
 
-  private API_ADDRESS: string = 'http://localhost:4201';
+  private authorized: boolean = false;
+  token: string = null;
 
-  private authorized: Boolean = false;
-  token: String = null;
-
-  private LOCALSTORAGE_TOKEN_KEY: string = '__Token_gameLobby'; // token key in storage
   private storage = localStorage; // storage type
 
-  private removeToken() {
+  private removeToken(): void {
     this.token = null;
     this.authorized = false;
-    this.storage.removeItem(this.LOCALSTORAGE_TOKEN_KEY);
+    this.storage.removeItem(LOCALSTORAGE_TOKEN_KEY);
   }
 
-  private saveToken(token) {
-    this.storage.setItem(this.LOCALSTORAGE_TOKEN_KEY, token);
+  private saveToken(token): void {
+    this.token = token;
+    this.storage.setItem(LOCALSTORAGE_TOKEN_KEY, token);
   }
 
-  private getToken(): Boolean {
-    const token = this.storage.getItem(this.LOCALSTORAGE_TOKEN_KEY);
+  private getToken(): boolean {
+    const token = this.storage.getItem(LOCALSTORAGE_TOKEN_KEY);
     if (token) {
       this.authorized = true;
       this.token = token;
@@ -38,13 +41,15 @@ export class AuthService {
     this.getToken();
   }
 
-  logIn(userName: String, password: String): Promise<any> {
+  logIn(userName: string, password: string): Promise<any> {
+
     return new Promise((resolve, reject) => {
-      this.http.post(this.API_ADDRESS + '/api/login', { name: userName, password: password }, )
-      .map((res: Response) => res.json())
-      .subscribe(res => {
+
+      this.http.post(Path.join([API_ADDRESS, API_PATH.LOGIN]), { name: userName, password: password })
+        .map((res: Response) => res.json())
+        .toPromise()
+        .then(res => {
           if (res.token) {
-            this.token = res.token;
             this.saveToken(res.token);
             this.authorized = true;
             resolve(true);
@@ -52,35 +57,36 @@ export class AuthService {
             this.authorized = false;
             resolve(false);
           }
-        },
-        err => {
+        }).catch(err => {
+          console.error('Login', err);
           reject(err);
         });
+
     });
+
   }
 
-  isAuthorized(): Boolean {
+  isAuthorized(): boolean {
     return this.authorized;
   }
 
-  logOut() {
+  logOut(): void {
     this.removeToken();
     this.router.navigate(['/login']);
   }
 
-  tokenRequest(path: string, data: Object = {}): Promise<any>{
+  /**
+   * Makes request to api with Authorization header and returns promise.
+   */
+  tokenRequest(path: string, data: Object = {}): Promise<any> {
+
     const headers = new Headers;
     headers.append('Authorization', `Bearer ${this.token}`);
 
-    return new Promise((resolve, reject) => {
-      this.http.post(`${this.API_ADDRESS}${path}`, data, { headers: headers }).map(res => res.json()).subscribe(
-      res => {
-        resolve(res);
-      },
-      err => {
-        reject(err);
-      });
-    });
+    return this.http.post(Path.join([API_ADDRESS, path]), data, { headers: headers })
+      .map(res => res.json())
+      .toPromise();
+
   }
 
 }

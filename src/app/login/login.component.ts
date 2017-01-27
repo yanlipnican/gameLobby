@@ -12,12 +12,12 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  emailInput: String;
-  passwordInput: String;
-  errorMessage: String;
+  emailInput: string;
+  passwordInput: string;
+  errorMessage: string;
 
-  isError: Boolean = false;
-  loading: Boolean = false;
+  isError: boolean = false;
+  loading: boolean = false;
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleError(err) {
-    console.error('Login', err);
     this.isError = true;
     this.errorMessage = 'Unable to reach server.';
     this.loading = false;
