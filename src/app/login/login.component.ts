@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.loading = true;
+    this.isError = false;
 
     this.auth.logIn(this.emailInput, this.passwordInput).then((isAuthorized) => {
       if (isAuthorized) {

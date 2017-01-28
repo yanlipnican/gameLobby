@@ -1,17 +1,17 @@
-<div class="row container-outer">
-  <div class="container col-xs-12 col-sm-6 col-sm-offset-3">
-    <h1>Login</h1>
+<div class="container-outer">
+  <div class="container col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+    <h1><a routerLink="/"><img class="logo" src="/assets/angular.png" alt=""></a></h1>
     <form (submit)="submit()">
       <div *ngIf="isError" class="alert alert-danger" role="alert">
         <strong>Oh snap!</strong> {{ errorMessage }}
       </div>
       <div class="form-group">
         <label for="email">Email:</label>
-        <input class="form-control" type="text" name="email" [(ngModel)]="emailInput" (keydown)="onKeyHandler()"/>
+        <input placeholder="example@email.com" class="form-control" type="text" name="email" [(ngModel)]="emailInput" (keydown)="onKeyHandler()" required/>
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input class="form-control" type="password" name="password" [(ngModel)]="passwordInput" (keydown)="onKeyHandler()"/>
+        <input placeholder="********" class="form-control" type="password" name="password" [(ngModel)]="passwordInput" (keydown)="onKeyHandler()" required/>
       </div>
       <div class="form-group">
         <input class="btn btn-primary" type="submit" value="Login"/><span *ngIf="loading" class="Loading"></span>

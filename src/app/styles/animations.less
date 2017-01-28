@@ -1,0 +1,15 @@
+// animations
+
+@keyframes fadeIn {
+    from {
+        opacity: .01; // cant use 0 for some reason (maybe zonejs thinks that component is not loaded and throws error)
+	}
+    to {
+        opacity: 1;
+	}
+}
+
+.fadeInOnLoad{
+    animation-name: fadeIn;
+    animation-duration: 1s;
+}

@@ -5,12 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from 'app/login/login.component';
 import { RegisterComponent } from 'app/register/register.component';
 import { NotFoundComponent } from 'app/not-found/not-found.component';
+import { LandingComponent } from 'app/landing/landing.component';
 
 // authGuard
 import { AuthGuardService } from 'app/services/authGuard.service';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', component: LandingComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'home', loadChildren : 'app/home/home.module#HomeModule', canActivate: [AuthGuardService]},
