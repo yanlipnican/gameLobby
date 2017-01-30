@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from 'app/app-routing.module';
+import { StoreModule } from '@ngrx/store';
 
 // bootstrap
 import { Ng2BootstrapModule, ButtonsModule, DropdownModule, AlertModule } from 'ng2-bootstrap';
@@ -11,6 +12,10 @@ import { Ng2BootstrapModule, ButtonsModule, DropdownModule, AlertModule } from '
 import { AuthService } from 'app/services/auth.service';
 import { AuthGuardService } from 'app/services/authGuard.service';
 import { UserService } from 'app/services/user.service';
+import { UserResolver } from 'app/services/user.resolve';
+
+// reducers
+import { LoadingReducer } from 'app/reducers/loading.reducer';
 
 // components
 import { AppComponent } from './app.component';
@@ -32,6 +37,10 @@ import { LandingComponent } from './landing/landing.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    StoreModule.provideStore({
+      // reducers
+      loadingState: LoadingReducer,
+    }),
     // bootstrap
     DropdownModule.forRoot(),
     ButtonsModule.forRoot(),
@@ -42,6 +51,7 @@ import { LandingComponent } from './landing/landing.component';
     AuthService,
     AuthGuardService,
     UserService,
+    UserResolver,
   ],
   bootstrap: [AppComponent]
 })

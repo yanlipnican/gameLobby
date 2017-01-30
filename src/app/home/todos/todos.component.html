@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="group" *ngFor="let group of todoGroups">
+
+        <h2 class="group-title">{{group.title}}</h2>
+        <div class="todos">
+          
+          <div class="todo" *ngFor="let todo of group.todos" [ngClass]="{'done': todo.done}">
+            <h3 class="title">{{todo.title}}</h3>
+            <span class="time">{{getTime(todo.timestamp)}}</span>
+            <span class="date">{{getDate(todo.timestamp)}}</span>
+            <span class="text">{{todo.text}}</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

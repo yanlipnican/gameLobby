@@ -2,7 +2,7 @@
     {{ error }}
 </alert>
 <div *ngIf="loading" class="loading fadeInOnLoad"></div>
-<div *ngIf="!loading && !error" class="fadeInOnLoad">
+<div [ngClass]="{'hidden' : loading || error}" class="fadeInOnLoad">
     <app-header></app-header>
     <router-outlet></router-outlet>
 </div>

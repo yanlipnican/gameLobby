@@ -10,6 +10,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 // bootstrap
 import { Ng2BootstrapModule, ButtonsModule, DropdownModule, AlertModule } from 'ng2-bootstrap';
+import { TodosComponent } from './todos/todos.component';
+
+// services
+import { TodoService } from 'app/services/todo.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,7 @@ import { Ng2BootstrapModule, ButtonsModule, DropdownModule, AlertModule } from '
       AboutComponent,
       HeaderComponent,
       UserProfileComponent,
+      TodosComponent,
   ],
   imports: [
     HomeRoutingModule,
@@ -27,7 +32,8 @@ import { Ng2BootstrapModule, ButtonsModule, DropdownModule, AlertModule } from '
     AlertModule.forRoot(),
     Ng2BootstrapModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [HomeComponent],
+  providers: [
+    TodoService,
+  ],
 })
 export class HomeModule { }

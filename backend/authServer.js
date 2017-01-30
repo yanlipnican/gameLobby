@@ -38,13 +38,20 @@ const crossOrigin = function (req, res, next) {
     next();
 };
 
+// just to simulate real server
+const timeout = function (req, res, next) {
+    setTimeout(() => {
+        next();
+    }, 2000);
+}
+
 app.use(crossOrigin);
 
 const jwt_middleware = express_jwt({ secret: secret });
 
 let enabledUsers = ['janko'];
 
-app.post('/api/login', (req, res) => {
+app.post('/api/login', timeout, (req, res) => {
         
     let user;
     
@@ -64,8 +71,7 @@ app.post('/api/login', (req, res) => {
 
 });
 
-app.post('/api/get_profile', jwt_middleware, (req, res) => {
-
+app.post('/api/get_profile', jwt_middleware, timeout, (req, res) => {
     let userName = req.user.name;
     let user = getUserByName(userName);
     res.json(user);

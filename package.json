@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "@angularclass/hmr": "^1.2.2",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ng2-bootstrap": "^1.2.6",

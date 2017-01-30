@@ -6,6 +6,7 @@ import { Path } from 'app/app.helpers';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/toPromise';
+import { IUser } from 'app/services/user.service';
 
 @Injectable()
 export class AuthService {
@@ -78,7 +79,7 @@ export class AuthService {
   /**
    * Makes request to api with Authorization header and returns promise.
    */
-  tokenRequest(path: string, data: Object = {}): Promise<any> {
+  tokenRequest(path: string, data: Object = {}): Promise<IUser> {
 
     const headers = new Headers;
     headers.append('Authorization', `Bearer ${this.token}`);
@@ -86,6 +87,16 @@ export class AuthService {
     return this.http.post(Path.join([API_ADDRESS, path]), data, { headers: headers })
       .map(res => res.json())
       .toPromise();
+
+  }
+
+  tokenRequestObservable(path: string, data: Object = {}): Observable<IUser> {
+
+    const headers = new Headers;
+    headers.append('Authorization', `Bearer ${this.token}`);
+
+    return this.http.post(Path.join([API_ADDRESS, path]), data, { headers: headers })
+      .map(res => res.json());
 
   }
 

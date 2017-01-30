@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<div [ngClass]="{'hidden': loading}">
+    <router-outlet></router-outlet>
+</div>
+<div class="loading" *ngIf="loading"><img src="/assets/angular.png" alt=""></div>

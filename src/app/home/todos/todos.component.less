@@ -1,0 +1,42 @@
+.group{
+    background-color: white;
+    padding: 15px 20px;
+    position: relative;
+    margin-bottom: 18px;
+    width: 200px;
+
+    .group-title{
+        margin: 0;
+        font-size: 20px;
+    }
+}
+
+.todos{
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 0;
+    width: 250px;
+    background-color: #aaa;
+}
+
+.todo{
+
+    padding: 20px;
+    margin-bottom: 5px;
+    background-color: white;
+
+    .title{
+        font-size: 16px;
+    }
+
+    &.done{
+        opacity: .7;
+
+        .title:after{
+            content: '(done)';
+            color: #666;
+            font-size: 13px;
+            margin-left: 4px;
+        }
+    }
+}
