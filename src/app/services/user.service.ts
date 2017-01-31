@@ -37,3 +37,17 @@ export interface IUser {
   password: String;
   bio: String;
 }
+
+export class User implements IUser {
+  name: String;
+  id: Number;
+  password: String;
+  bio: String;
+
+  constructor(data: IUser) {
+    this.name = data.name;
+    this.id = data.id;
+    this.password = data.password;
+    this.bio = data.bio;
+  }
+}

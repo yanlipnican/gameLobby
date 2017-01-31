@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
+import { UUID } from 'app/app.helpers';
 
-export interface ITodo{
+export interface ITodo {
   id: string;
   title: string;
   text: string;
@@ -14,6 +15,75 @@ export interface ITodoGroup{
   todos: ITodo[];
   title: string;
   timestamp: number;
+}
+
+export class TodoGroup implements ITodoGroup{
+
+  public id: string = UUID.generate();
+  public title: string = '';
+  public timestamp: number = new Date().getTime();
+  public todos: Todo[] = [];
+
+  constructor(data?: ITodoGroup){
+    if(data){
+      this.id = data.id;
+      this.title = data.title;
+      this.timestamp = data.timestamp;
+      this.todos = [];
+
+      for(let todoData of data.todos){
+        this.todos.push(new Todo(todoData));
+      }
+
+    }
+  }
+
+  public toJSON(): ITodoGroup {
+
+    let todos = [];
+
+    for(let todo of this.todos){
+      todos.push(todo.toJSON());
+    }
+
+    return {
+      id: this.id,
+      title: this.title,
+      timestamp: this.timestamp,
+      todos: todos,
+    }
+  }
+
+}
+
+export class Todo implements ITodo{
+
+  public id: string = UUID.generate();
+  public title: string = '';
+  public text: string = '';
+  public timestamp: number = new Date().getTime();
+  public done: boolean = false;
+
+  constructor(data?: ITodo){
+    if(data){
+      this.id = data.id;
+      this.title = data.title;
+      this.text = data.text;
+      this.timestamp = data.timestamp;
+      this.done = data.done;
+    }
+  }
+
+  public toJSON(): ITodo {
+    return {
+      id: this.id,
+      title: this.title,
+      text: this.text,
+      timestamp: this.timestamp,
+      done: this.done,
+    };
+  }
+
 }
 
 @Injectable()
