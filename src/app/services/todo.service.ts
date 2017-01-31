@@ -30,12 +30,18 @@ export class TodoGroup implements ITodoGroup{
       this.title = data.title;
       this.timestamp = data.timestamp;
       this.todos = [];
-
-      for(let todoData of data.todos){
-        this.todos.push(new Todo(todoData));
-      }
-
+      this.addTodoData(data.todos);
     }
+  }
+
+  public addTodoData(data: ITodo[]): void {
+    for(let todo of data){
+      this.todos.push(new Todo(todo));
+    }
+  }
+
+  public addTodo(todo: Todo): void {
+    this.todos.push(todo);
   }
 
   public toJSON(): ITodoGroup {
