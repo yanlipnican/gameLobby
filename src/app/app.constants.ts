@@ -6,7 +6,7 @@
 /**
  * API server adress.
  */
-export const API_ADDRESS = 'http://localhost:4201';
+export const API_ADDRESS = 'http://api.gamelobby.dev';
 /**
  * Api paths
  */

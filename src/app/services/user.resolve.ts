@@ -20,7 +20,7 @@ export class UserResolver implements Resolve<IUser>{
 
       this.store.dispatch({ type: USER_FETCH_LOADING_START });
 
-      const observable = this.userService.fetchUserInfoObservable();
+      const observable = this.userService.fetchUserInfo();
       observable.subscribe(() => this.store.dispatch({ type: USER_FETCH_LOADING_STOP }));
 
       return observable;

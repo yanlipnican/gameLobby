@@ -4,12 +4,28 @@ const PORT = process.env.PORT || 4201;
 const bodyParser = require('body-parser');
 const express_jwt = require('express-jwt');
 const jwt = require('jsonwebtoken');
+var mongoose   = require('mongoose');
+
+mongoose.connect('mongodb://vagrant.dev:27017/gamelobby');
+
+var Schema = mongoose.Schema;
+
+var User = new Schema({
+    name: String,
+    password: String,
+    bio: String,
+});
 
 let secret = 'adasdasd';
 
-let users = [
-    { name: 'janko', password: '123', id: 1, bio: 'Ja som janko'}
-];
+let user = new UserSchema();
+
+user.name = 'janko';
+user.password = 123;
+user.bio = 'ja som janko';
+
+user.save();
+
 
 function getUserByName(name) {
     for(let key in users){
@@ -38,20 +54,13 @@ const crossOrigin = function (req, res, next) {
     next();
 };
 
-// just to simulate real server
-const timeout = function (req, res, next) {
-    setTimeout(() => {
-        next();
-    }, 2000);
-}
-
 app.use(crossOrigin);
 
 const jwt_middleware = express_jwt({ secret: secret });
 
 let enabledUsers = ['janko'];
 
-app.post('/api/login', timeout, (req, res) => {
+app.post('/api/login', (req, res) => {
         
     let user;
     
@@ -71,7 +80,8 @@ app.post('/api/login', timeout, (req, res) => {
 
 });
 
-app.post('/api/get_profile', jwt_middleware, timeout, (req, res) => {
+app.post('/api/get_profile', jwt_middleware, (req, res) => {
+
     let userName = req.user.name;
     let user = getUserByName(userName);
     res.json(user);

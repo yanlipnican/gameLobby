@@ -20,23 +20,26 @@ export interface ITodoGroup{
 export class TodoGroup implements ITodoGroup{
 
   public id: string = UUID.generate();
-  public title: string = '';
   public timestamp: number = new Date().getTime();
   public todos: Todo[] = [];
 
-  constructor(data?: ITodoGroup){
-    if(data){
-      this.id = data.id;
-      this.title = data.title;
-      this.timestamp = data.timestamp;
-      this.todos = [];
-      this.addTodoData(data.todos);
-    }
+  /**
+   * Creates TodoGroup instance from ITodoGroup data object
+   */
+  public static create(data: ITodoGroup): TodoGroup {
+    const newGroup = new TodoGroup();
+    newGroup.id = data.id;
+    newGroup.title = data.title;
+    newGroup.timestamp = data.timestamp;
+    newGroup.addTodoData(data.todos);
+    return newGroup;
   }
+
+  constructor(public title = '') {}
 
   public addTodoData(data: ITodo[]): void {
     for(let todo of data){
-      this.todos.push(new Todo(todo));
+      this.todos.push(Todo.create(todo));
     }
   }
 
@@ -65,20 +68,24 @@ export class TodoGroup implements ITodoGroup{
 export class Todo implements ITodo{
 
   public id: string = UUID.generate();
-  public title: string = '';
-  public text: string = '';
   public timestamp: number = new Date().getTime();
   public done: boolean = false;
 
-  constructor(data?: ITodo){
-    if(data){
-      this.id = data.id;
-      this.title = data.title;
-      this.text = data.text;
-      this.timestamp = data.timestamp;
-      this.done = data.done;
-    }
+  /**
+   * Creates Todo instance from ITodo data object
+   */
+  public static create(data: ITodo): Todo {
+    const newTodo = new Todo();
+    newTodo.id = data.id;
+    newTodo.title = data.title;
+    newTodo.text = data.text;
+    newTodo.timestamp = data.timestamp;
+    newTodo.done = data.done;
+
+    return newTodo;
   }
+
+  constructor(public title = '', public text = '') {}
 
   public toJSON(): ITodo {
     return {
@@ -97,22 +104,8 @@ export class TodoService{
 
   constructor(private auth: AuthService) {}
 
-  getTodos(): ITodoGroup[] {
-    return [
-      {
-        id: 'asda',
-        todos: [
-          {id: 'asgnk', title: 'Groceries', text: 'just some shit', timestamp: 1485809300, done: false},
-          {id: 'asgnkasf', title: 'Do nothing', text: 'just some shit', timestamp: 1485809300, done: true},
-        ],
-        title: 'First todo group',
-        timestamp: 1485809200
-      },
-
-      {id: 'asdas', todos: [], title: 'Second todo group', timestamp: 1485809200},
-
-      {id: 'asdad', todos: [], title: 'Third todo group', timestamp: 1485809200},
-    ];
+  getTodos(): TodoGroup[] {
+    return [];
   }
 
 }

@@ -1,20 +1,33 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+
       <div class="group" *ngFor="let group of todoGroups">
 
-        <h2 class="group-title">{{group.title}}</h2>
+        <input class="group-title" placeholder="title" [(ngModel)]="group.title" [ngClass]="{'empty': empty(group.title)}"/>
+        <div class="controls">
+          <a (click)="addTodo(group)"><span class="glyphicon glyphicon-plus"></span></a><br>
+          <a (click)="removeGroup(group)"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
         <div class="todos">
           
           <div class="todo" *ngFor="let todo of group.todos" [ngClass]="{'done': todo.done}">
-            <h3 class="title">{{todo.title}}</h3>
+            <input class="title" placeholder="title" [(ngModel)]="todo.title" [ngClass]="{'empty': empty(todo.title)}"/>
             <span class="time">{{getTime(todo.timestamp)}}</span>
             <span class="date">{{getDate(todo.timestamp)}}</span>
-            <span class="text">{{todo.text}}</span>
-          </div>
+            <input class="text" placeholder="text" [(ngModel)]="todo.text" [ngClass]="{'empty': empty(todo.text)}"/>
+          </div> <!-- end todos -->
 
         </div>
-      </div>
+
+      </div> <!-- end todoGroups -->
+
+      <a (click)="addGroup()" class="addGroup"><span class="glyphicon glyphicon-plus"></span></a>
+
     </div>
   </div>
+</div>
+
+<div class="bottom-toolbar">
+  <button type="button" class="btn" (click)="save()" [ngClass]="{'btn-success': saved, 'btn-warning': !saved}">Save</button>
 </div>

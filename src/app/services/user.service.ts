@@ -8,23 +8,15 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
 
-  public user: IUser;
+  public user: User;
 
   constructor(private auth: AuthService) {}
-
-  fetchUserInfo(): Promise<IUser> {
-    return this.fetchUserInfoObservable().toPromise();
-  }
-
-  getUserInfo(): Promise<IUser> {
-    return this.auth.tokenRequest(API_PATH.USER_PROFILE);
-  }
 
   /**
    * Fetches user info and returns Observable and sets UserService.user
    */
-  fetchUserInfoObservable(): Observable<IUser> {
-    const observable = this.auth.tokenRequestObservable(API_PATH.USER_PROFILE);
+  fetchUserInfo(): Observable<User> {
+    const observable = this.auth.tokenRequestObservable(API_PATH.USER_PROFILE).map(user => new User(user));
     observable.subscribe(user => this.user = user);
     return observable;
   }
@@ -34,20 +26,17 @@ export class UserService {
 export interface IUser {
   name: String;
   id: Number;
-  password: String;
   bio: String;
 }
 
 export class User implements IUser {
   name: String;
   id: Number;
-  password: String;
   bio: String;
 
   constructor(data: IUser) {
     this.name = data.name;
     this.id = data.id;
-    this.password = data.password;
     this.bio = data.bio;
   }
 }

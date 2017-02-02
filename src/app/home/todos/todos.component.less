@@ -1,14 +1,46 @@
 .group{
     background-color: white;
     padding: 15px 20px;
+    padding-right: 50px;
     position: relative;
     margin-bottom: 18px;
     width: 200px;
 
+    .controls{
+        position: absolute;
+        background-color: crimson;
+        padding: 10px;
+        right: 0px;
+        top: 0px;
+        height: 100%;
+
+        a{
+            color: white;
+            cursor: pointer;
+        }
+    }
+
     .group-title{
         margin: 0;
         font-size: 20px;
+        border: none;
+        width: 100%;
+
+        &:focus, &.empty{
+            outline: 0;
+            border-bottom:1px solid #aaa;
+        }
     }
+}
+
+.addGroup{
+    display: block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    background-color: crimson;
+    cursor: pointer;
 }
 
 .todos{
@@ -39,4 +71,11 @@
             margin-left: 4px;
         }
     }
+}
+
+.bottom-toolbar{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    padding: 20px;
 }

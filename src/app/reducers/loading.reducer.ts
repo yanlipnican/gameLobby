@@ -22,7 +22,5 @@ export function LoadingReducer(state = initialState,  action: Action) {
             break;
     }
 
-    console.log(state);
-
     return Object.assign({}, state);
 }
