@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LandingComponent } from './landing/landing.component';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LandingComponent } from './landing/landing.component';
     RegisterComponent,
     NotFoundComponent,
     LandingComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,

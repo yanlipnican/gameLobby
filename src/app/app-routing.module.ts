@@ -6,7 +6,7 @@ import { LoginComponent } from 'app/login/login.component';
 import { RegisterComponent } from 'app/register/register.component';
 import { NotFoundComponent } from 'app/not-found/not-found.component';
 import { LandingComponent } from 'app/landing/landing.component';
-
+import { ChartsComponent } from 'app/charts/charts.component';
 // authGuard
 import { AuthGuardService } from 'app/services/authGuard.service';
 // resolve data and then access route
@@ -16,6 +16,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'home', loadChildren : 'app/home/home.module#HomeModule', resolve: { user: UserResolver }, canActivate: [AuthGuardService]},
+    { path: 'charts', component : ChartsComponent },
     { path: 'page-not-found', component: NotFoundComponent },
     { path: '**', redirectTo: 'page-not-found', pathMatch: 'full' },
 ];

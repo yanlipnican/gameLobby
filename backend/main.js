@@ -8,7 +8,7 @@ var http = require("http");
 
 //create http server
 var httpPort = normalizePort(process.env.PORT || 8080);
-var app = server.Server.bootstrap().app;
+var app = server.App().app;
 app.set("port", httpPort);
 var httpServer = http.createServer(app);
 

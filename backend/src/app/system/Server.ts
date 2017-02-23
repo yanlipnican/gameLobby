@@ -1,7 +1,7 @@
 import { Application, Router, Request, Response } from 'express';
 import * as express from 'express';
 
-import { BaseController } from 'app/system/BaseController';
+import { BaseController } from './BaseController';
 
 export class Server {
 
@@ -21,21 +21,7 @@ export class Server {
 
         this.app = express();
 
-        this.config();
-
-        this.controllers();
-
     }
-
-    /**
-     * App configuration
-     */
-    protected config(): void {}
-
-    /**
-     * Initialise routes and controllers
-     */
-    protected controllers(): void {}
 
     /**
      * Sets up controller extended from BaseController

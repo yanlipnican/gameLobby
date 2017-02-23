@@ -1,3 +1,4 @@
 **/.tscache
 dist/
 **/*.log
+**/.baseDir.ts

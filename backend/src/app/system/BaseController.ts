@@ -11,36 +11,18 @@ export class BaseController{
 
     constructor(){
         this.router = Router(this.baseRoute);
-    }
 
-    /**
-     * Post decorator (needs @route decorator before)
-     */
-    post(target: RequestHandler, propertyKey: string, descriptor: any) {
-        this.router.post(target.prototype.routePath, target);
+        console.log(this);
     }
-
-    /**
-     * Get decorator (needs @route decorator before)
-     */
-    get(target: RequestHandler, propertyKey: string, descriptor: any) {
-        this.router.get(target.prototype.routePath, target);
-    }
-
-    /**
-     * Route decorator
-     */
-    route(path: string): MethodDecorator {
-        return (target: RequestHandler, propertyKey: string, descriptor: any) => {
-            target.prototype.routePath = path;
-        };
-    }
-
-    /**
-     * Use decorator
-     */
-    use(target: RequestHandler, propertyKey: string, descriptor: any) {
-        this.router.use(target);
-    };
 
 }
+
+export function post(path: string){
+    return (target: any, propertyKey: string, descriptor: any) => {
+        if(!target._posts_methods){
+            target._posts_methods = [];
+        }
+        console.log(target);
+        target._posts_methods.push({path: path, method: descriptor.value});
+    }
+};

@@ -1,15 +1,17 @@
-import { Server } from 'app/system/Server';
+import { Server } from './system/Server';
 
-import { UserController } from 'app/controller/User';
+import { UserController } from './controller/User';
 
 export class App extends Server{
 
-    protected config(): void {
+    constructor(){
+        super();
 
+        super.useController(new UserController());
     }
 
     protected controllers(): void {
-        this.useController(new UserController());
+        
     }
 
 }
